@@ -5,12 +5,10 @@ namespace App\Http\Controllers;
 use App\Company;
 use App\Http\Requests\CompanyRequest;
 use Illuminate\Http\Request;
-use App\Traits\UploadTrait;
 use Illuminate\Support\Str;
 
 class CompanyController extends Controller
 {
-    use UploadTrait;
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +16,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::all();
+        $companies = Company::paginate('10');
         return view('companies.index', compact('companies'));
     }
 
@@ -40,14 +38,19 @@ class CompanyController extends Controller
      */
     public function store(CompanyRequest $request)
     {
-        $company = new Company();
-        $company->name = $request->name;
-        $company->email = $request->email;
-        $company->website = $request->website;
-        if($request->has('logo')){
-            $logo = $request->file('logo');
-            $name = Str::slug($request->name, '-');
+        if($request->hasFile('logo')){
+            $file = $request->file('logo');
+            $name_logo = time().Str::slug($request->input('name')).'.'.$file->getClientOriginalExtension();
+            $file->move(public_path().'/storage/images/', $name_logo);
         }
+        $company = new Company();
+        $company->name = $request->input('name');
+        $company->email = $request->input('email');
+        $company->website = $request->input('website');
+        $company->logo = $name_logo;
+        $company->save();
+        
+        return redirect()->route('company.index')->with('success', '¡Compañía agregada exitosamente!');
         // return $request->all();
     }
 
