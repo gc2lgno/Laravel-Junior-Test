@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use App\Mail\CompanyCreatedMail;
 use App\Traits\ImageTrait;
 use App\Http\Requests\CompanyRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class CompanyController extends Controller
@@ -48,9 +50,12 @@ class CompanyController extends Controller
         if($request->hasFile('logo')){
             $name_logo = $this->upLoadImage($request->file('logo'), $request->input('name'));
         }
+
         $company->logo = $name_logo;
         $company->save();
-        
+
+        Mail::to('admin@admin.com')->send(new CompanyCreatedMail($request));
+
         return redirect()->route('company.index')->with('success', '¡Compañía agregada exitosamente!');
         // return $request->all();
     }
