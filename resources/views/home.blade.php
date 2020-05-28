@@ -1,30 +1,42 @@
 @extends('layouts.app')
-
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
+@section('bread-title', 'Panel de Control')
+<!-- Default box -->
+<div class="fluid">
+    <div class="row">
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <h3>{{ $nCompanies }}</h3>
 
-                <div class="card-body">
-                    @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                    @endif
-
-                    <h1>
-                        Bienvenido,
-                    </h1>
-                    <br>
-                    <div class="">
-                        <a class="btn btn-primary" href="{{ route('company.index') }}">Companies</a>
-                        <a class="btn btn-primary" href="{{ route('employee.index') }}">Employees</a>
-                    </div>
+                    <p>Compañías Registradas</p>
                 </div>
+                <div class="icon">
+                    <i class="ion ion-bag"></i>
+                </div>
+                <a href="{{ route('company.index') }}" class="small-box-footer">Más Información <i
+                        class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+                <div class="inner">
+                    <h3>{{ $nEmployees }}</h3>
+
+                    <p>Empleados Registrados</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-person-add"></i>
+                </div>
+                <a href="{{ route('employee.index') }}" class="small-box-footer">Más Información <i
+                        class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
     </div>
 </div>
+<!-- /.card -->
 @endsection

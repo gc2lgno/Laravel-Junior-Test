@@ -20,7 +20,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::paginate('10');
+        $companies = Company::latest()->paginate('10');
         return view('companies.index', compact('companies'));
     }
 
@@ -68,7 +68,7 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        //
+        return view('companies.show', compact('company'));
     }
 
     /**
@@ -79,7 +79,7 @@ class CompanyController extends Controller
      */
     public function edit(Company $company)
     {
-        //
+        return view('companies.edit', compact('company'));
     }
 
     /**
@@ -89,9 +89,16 @@ class CompanyController extends Controller
      * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Company $company)
+    public function update(CompanyRequest $request, Company $company)
     {
-        //
+        if($request->hasFile('logo')){
+            $company->logo = $this->upLoadImage($request->file('logo'), $request->input('name'));
+        }
+
+        $company->update($request->input());
+
+        return redirect()->route('company.show', $company)
+            ->with('success', '¡Datos actualizados correctamente!');
     }
 
     /**
@@ -102,6 +109,7 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        //
+        $company->delete();
+        return $this->index();
     }
 }
