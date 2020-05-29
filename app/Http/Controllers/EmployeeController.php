@@ -16,7 +16,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::paginate(10);
+        $employees = Employee::latest()->paginate(10);
         return view('employees.index', compact('employees'));
     }
 
@@ -58,7 +58,7 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        //
+        return view('employees.show', compact('employee'));
     }
 
     /**
@@ -69,7 +69,8 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        //
+        $companies = Company::all()->except($employee->company->id);
+        return view('employees.edit', compact('employee', 'companies'));
     }
 
     /**
@@ -81,7 +82,8 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
-        //
+        $employee->update($request->all());
+        return redirect()->route('employee.show', $employee)->with('success', 'Datos actualizados correctamente');
     }
 
     /**
@@ -92,6 +94,7 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        //
+        Employee::destroy($employee->id);
+        return redirect()->route('employee.index')->with('success', 'Empleado eliminado correctamente');
     }
 }

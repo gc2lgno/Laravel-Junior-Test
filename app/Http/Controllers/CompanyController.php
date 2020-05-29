@@ -8,7 +8,6 @@ use App\Traits\ImageTrait;
 use App\Http\Requests\CompanyRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 
 class CompanyController extends Controller
 {
@@ -110,6 +109,6 @@ class CompanyController extends Controller
     public function destroy(Company $company)
     {
         $company->delete();
-        return $this->index();
+        return redirect()->route('companies.index')->with('success', 'COmpañía eliminada correctamente');
     }
 }

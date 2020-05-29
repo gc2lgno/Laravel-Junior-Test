@@ -12,4 +12,9 @@ class Company extends Model
         'logo',
         'website'
     ];
+
+    public function employee()
+    {
+        return $this->hasMany(Employee::class);
+    }
 }

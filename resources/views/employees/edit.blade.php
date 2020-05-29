@@ -1,40 +1,42 @@
 @extends('layouts.app')
-@section('bread-title', 'Registrar Empleado')
+@section('bread-title', 'Datos del Empleado')
 @section('content')
 <div class="col-6">
     @include('common.errors')
-    <div class="card card-info">
+    <div class="card card-warning">
         <div class="card-header">
-            <h3 class="card-title">Registrar Empleado</h3>
+            <h3 class="card-title">Editar los datos de {{ $employee->first_name. ' ' .$employee->last_name }} </h3>
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form role="form" action="{{ route('employee.store') }}" method="POST">
+        <form role="form" action="{{ route('employee.update', $employee->id) }}" method="POST">
             @csrf
+            @method('PUT')
             <div class="card-body">
                 <div class="form-group">
                     <label for="name">Nombre del Empleado</label>
                     <input class="form-control" type="text" name="first_name" id="first_name" required
-                        value="{{ old('first_name') }}">
+                        value="{{ $employee->first_name }}">
                 </div>
                 <div class="form-group">
                     <label for="name">Apellido del Empleado</label>
                     <input class="form-control" type="text" name="last_name" id="last_name" required
-                        value="{{ old('last_name') }}">
+                        value="{{ $employee->last_name }}">
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input class="form-control" type="email" name="email" id="email" required
-                        value="{{ old('email') }}">
+                        value="{{ $employee->email }}">
                 </div>
                 <div class="form-group">
                     <label for="website">Teléfono</label>
-                    <input class="form-control" type="text" name="phone" id="phone" required value="{{ old('phone') }}">
+                    <input class="form-control" type="text" name="phone" id="phone" required
+                        value="{{ $employee->phone }}">
                 </div>
                 <div class="form-group">
                     <label for="company">Companñía la que pertenece:</label>
                     <select class="form-control" name="company_id" id="company_id" required>
-                        <option value="">Selecciona una Opción</option>
+                        <option selected value="{{ $employee->company->id }}">{{ $employee->company->name }}</option>
                         @foreach ($companies as $company)
                         <option value="{{ $company->id }}">{{ $company->name }}</option>
                         @endforeach
@@ -43,8 +45,7 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Guardar</button>
-                <button type="reset" class="btn btn-danger">Reiniciar</button>
+                <button type="submit" class="btn btn-info">Guardar</button>
             </div>
         </form>
     </div>
