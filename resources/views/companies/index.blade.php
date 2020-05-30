@@ -27,29 +27,29 @@
                     <tr>
                         <td>{{ $company->name }}</td>
                         <td>
-                            <img class="company-logo" src="{{ asset('storage/images/'.$company->logo) }}"
+                            <img class="company-logo" src="{{ Storage::url($company->logo) }}"
                                 alt="Logo de {{ $company->name }}">
                         </td>
-                        <td>
-                            <div class="btn-group">
-                                <a href="{{ route('company.show', $company->id) }}" class="btn btn-info">
-                                    <i class="fa fa-eye"></i>
-                                </a>
-                                <a class="btn btn-success" href="http://{{ $company->website }}" target="_blank">
-                                    <i class="fa fa-globe"></i>
-                                </a>
-                                <a class="btn btn-primary" href="mailto:{{ $company->email }}">
-                                    <i class="fa fa-envelope"></i>
-                                </a>
-                                <form action="{{ route('company.destroy', $company->id) }}" method="POST">
+                        <form action="{{ route('company.destroy', $company->id) }}" method="POST">
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{{ route('company.show', $company->id) }}" class="btn btn-info">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a class="btn btn-success" href="http://{{ $company->website }}" target="_blank">
+                                        <i class="fa fa-globe"></i>
+                                    </a>
+                                    <a class="btn btn-primary" href="mailto:{{ $company->email }}">
+                                        <i class="fa fa-envelope"></i>
+                                    </a>
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">
                                         <i class="fa fa-trash"></i>
                                     </button>
-                                </form>
-                            </div>
-                        </td>
+                                </div>
+                            </td>
+                        </form>
                     </tr>
                     @endforeach
                 </tbody>

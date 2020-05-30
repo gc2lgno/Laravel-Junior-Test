@@ -28,7 +28,7 @@
                 </div>
                 <div class="form-group">
                     <h4>Logo:</h4>
-                    <img class="company-logo" src="{{ asset('storage/images/'.$company->logo) }}"
+                    <img class="company-logo" src="{{ Storage::url($company->logo) }}"
                                 alt="Logo de {{ $company->name }}">
                 </div>
                 <div class="form-group">

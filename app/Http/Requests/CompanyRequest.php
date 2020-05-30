@@ -25,7 +25,7 @@ class CompanyRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:companies,email,'.$this->route('company.id'),
             'website' => 'required',
             'logo' => 'mimes:png,jpg,jpeg|dimensions:min_width=100,min_height=100'
         ];

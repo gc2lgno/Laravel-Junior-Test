@@ -4,14 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use App\Mail\CompanyCreatedMail;
-use App\Traits\ImageTrait;
+use App\Traits\FileTrait;
 use App\Http\Requests\CompanyRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 class CompanyController extends Controller
 {
-    use ImageTrait;
+    use FileTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -36,7 +37,7 @@ class CompanyController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(CompanyRequest $request)
@@ -45,12 +46,10 @@ class CompanyController extends Controller
         $company->name = $request->input('name');
         $company->email = $request->input('email');
         $company->website = $request->input('website');
-
-        if($request->hasFile('logo')){
-            $name_logo = $this->upLoadImage($request->file('logo'), $request->input('name'));
+        if ($request->hasFile('logo')) {
+            $ruta_logo = $this->upLoadFile('images', $request->file('logo'));
         }
-
-        $company->logo = $name_logo;
+        $company->logo = $ruta_logo;
         $company->save();
 
         Mail::to('admin@admin.com')->send(new CompanyCreatedMail($request));
@@ -62,7 +61,7 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Company  $company
+     * @param \App\Company $company
      * @return \Illuminate\Http\Response
      */
     public function show(Company $company)
@@ -73,7 +72,7 @@ class CompanyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Company  $company
+     * @param \App\Company $company
      * @return \Illuminate\Http\Response
      */
     public function edit(Company $company)
@@ -84,18 +83,16 @@ class CompanyController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Company  $company
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Company $company
      * @return \Illuminate\Http\Response
      */
     public function update(CompanyRequest $request, Company $company)
     {
-        if($request->hasFile('logo')){
-            $company->logo = $this->upLoadImage($request->file('logo'), $request->input('name'));
+        if ($request->hasFile('logo')) {
+            $company->logo = $this->upLoadFile($request->file('logo'), $request->input('name'));
         }
-
         $company->update($request->input());
-
         return redirect()->route('company.show', $company)
             ->with('success', '¡Datos actualizados correctamente!');
     }
@@ -103,12 +100,14 @@ class CompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Company  $company
+     * @param \App\Company $company
      * @return \Illuminate\Http\Response
      */
     public function destroy(Company $company)
     {
+        $this->deleteFile($company->logo);
         $company->delete();
-        return redirect()->route('companies.index')->with('success', 'COmpañía eliminada correctamente');
+        return redirect()->route('company.index')->with('success','Compañía eliminada');
+
     }
 }
