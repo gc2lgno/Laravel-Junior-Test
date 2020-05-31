@@ -20,7 +20,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::latest()->paginate('10');
+        $companies = Company::latest()->paginate(5);
         return view('companies.index', compact('companies'));
     }
 
@@ -44,10 +44,11 @@ class CompanyController extends Controller
     {
         $company = new Company();
         $company->name = $request->input('name');
+        $company->direction = $request->input('direction');
         $company->email = $request->input('email');
         $company->website = $request->input('website');
         if ($request->hasFile('logo')) {
-            $ruta_logo = $this->upLoadFile('images', $request->file('logo'));
+            $ruta_logo = $this->upLoadFile('images/logo', $request->file('logo'));
         }
         $company->logo = $ruta_logo;
         $company->save();
@@ -90,8 +91,9 @@ class CompanyController extends Controller
     public function update(CompanyRequest $request, Company $company)
     {
         if ($request->hasFile('logo')) {
-            $company->logo = $this->upLoadFile($request->file('logo'), $request->input('name'));
+            $ruta_logo = $this->upLoadFile('images/logo', $request->file('logo'));
         }
+        $company->logo = $ruta_logo;
         $company->update($request->input());
         return redirect()->route('company.show', $company)
             ->with('success', '¡Datos actualizados correctamente!');
@@ -105,7 +107,7 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        $this->deleteFile($company->logo);
+        // $this->deleteFile($company->logo);
         $company->delete();
         return redirect()->route('company.index')->with('success','Compañía eliminada');
 

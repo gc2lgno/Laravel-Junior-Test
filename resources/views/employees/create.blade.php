@@ -9,7 +9,7 @@
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form role="form" action="{{ route('employee.store') }}" method="POST">
+        <form role="form" action="{{ route('employee.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card-body">
                 <div class="form-group">
@@ -23,6 +23,10 @@
                         value="{{ old('last_name') }}">
                 </div>
                 <div class="form-group">
+                    <label for="logo">Avatar:</label>
+                    <input type="file" class="form-control-file" name="avatar" id="avatar" required>
+                </div>
+                <div class="form-group">
                     <label for="email">Email</label>
                     <input class="form-control" type="email" name="email" id="email" required
                         value="{{ old('email') }}">
@@ -32,7 +36,7 @@
                     <input class="form-control" type="text" name="phone" id="phone" required value="{{ old('phone') }}">
                 </div>
                 <div class="form-group">
-                    <label for="company">Companñía la que pertenece:</label>
+                    <label for="company">Compañía la que pertenece:</label>
                     <select class="form-control" name="company_id" id="company_id" required>
                         <option value="">Selecciona una Opción</option>
                         @foreach ($companies as $company)

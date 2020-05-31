@@ -9,10 +9,13 @@
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form role="form" action="{{ route('employee.update', $employee->id) }}" method="POST">
+        <form role="form" action="{{ route('employee.update', $employee->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="card-body">
+                <div class="form-group">
+                    <img src="{{ Storage::url($employee->avatar) }}" alt="Avatar del empleado">
+                </div>
                 <div class="form-group">
                     <label for="name">Nombre del Empleado</label>
                     <input class="form-control" type="text" name="first_name" id="first_name" required
@@ -22,6 +25,10 @@
                     <label for="name">Apellido del Empleado</label>
                     <input class="form-control" type="text" name="last_name" id="last_name" required
                         value="{{ $employee->last_name }}">
+                </div>
+                <div class="form-group">
+                    <label for="logo">Avatar:</label>
+                    <input type="file" class="form-control-file" name="avatar" id="avatar">
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>

@@ -6,9 +6,11 @@ use App\Company;
 use App\Employee;
 use App\Http\Requests\EmployeeRequest;
 use Illuminate\Http\Request;
+use App\Traits\FileTrait;
 
 class EmployeeController extends Controller
 {
+    use FileTrait;
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +18,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::latest()->paginate(10);
+        $employees = Employee::latest()->paginate(9);
         return view('employees.index', compact('employees'));
     }
 
@@ -42,6 +44,10 @@ class EmployeeController extends Controller
         $employee = new Employee();
         $employee->first_name = $request->input('first_name');
         $employee->last_name = $request->input('last_name');
+        if ($request->hasFile('avatar')) {
+            $ruta_avatar = $this->upLoadFile('images/avatar', $request->file('avatar'));
+        }
+        $employee->avatar = $ruta_avatar;
         $employee->email = $request->input('email');
         $employee->phone = $request->input('phone');
         $employee->company_id = $request->input('company_id');
@@ -82,7 +88,11 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
-        $employee->update($request->all());
+        if ($request->hasFile('avatar')) {
+            $ruta_avatar = $this->upLoadFile('images/avatar', $request->file('avatar'));
+        }
+        $employee->avatar = $ruta_avatar;
+        $employee->update($request->input());
         return redirect()->route('employee.show', $employee)->with('success', 'Datos actualizados correctamente');
     }
 
@@ -94,7 +104,7 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        Employee::destroy($employee->id);
+        $employee->delete();
         return redirect()->route('employee.index')->with('success', 'Empleado eliminado correctamente');
     }
 }

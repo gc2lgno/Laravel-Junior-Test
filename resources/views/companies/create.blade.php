@@ -17,6 +17,10 @@
                     <input class="form-control" type="text" name="name" id="name" required value="{{ old('name') }}">
                 </div>
                 <div class="form-group">
+                    <label for="name">Dirección:</label>
+                    <input class="form-control" type="text" name="direction" id="direction" required value="{{ old('direction') }}">
+                </div>
+                <div class="form-group">
                     <label for="email">Email</label>
                     <input class="form-control" type="email" name="email" id="email" required value="{{ old('email') }}">
                 </div>

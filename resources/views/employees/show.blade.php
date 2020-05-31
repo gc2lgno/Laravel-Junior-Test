@@ -23,6 +23,9 @@
                         value="{{ $employee->last_name }}">
                 </div>
                 <div class="form-group">
+                    <img src="{{ Storage::url($employee->avatar) }}" alt="Avatar de empleado"/>
+                </div>
+                <div class="form-group">
                     <label for="email">Email</label>
                     <input class="form-control" type="email" name="email" id="email" readonly
                         value="{{ $employee->email }}">
