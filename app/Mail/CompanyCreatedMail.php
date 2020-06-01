@@ -14,14 +14,16 @@ class CompanyCreatedMail extends Mailable
     public $subject = "Se ha registrado una nueva Compañía";
 
     public $data;
+    public $logo;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($data, $logo)
     {
         $this->data = $data;
+        $this->logo = $logo;
     }
 
     /**
@@ -31,6 +33,6 @@ class CompanyCreatedMail extends Mailable
      */
     public function build()
     {
-        return $this->view('companies.email');
+        return $this->view('companies.email')->attachFromStorage($this->logo);
     }
 }

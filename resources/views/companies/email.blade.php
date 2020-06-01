@@ -8,6 +8,7 @@
     <li>Nombre: {{ $data['name'] }} </li>
     <li>Email: {{ $data['email'] }} </li>
     <li>Website: {{ $data['website'] }} </li>
+    <li>Y su logo va adjunto en el correo.</li>
 </ul>
 </p>
 </body>

@@ -53,10 +53,9 @@ class CompanyController extends Controller
         $company->logo = $ruta_logo;
         $company->save();
 
-        Mail::to('admin@admin.com')->send(new CompanyCreatedMail($request));
+        Mail::to('admin@admin.com')->send(new CompanyCreatedMail($request, $company->logo));
 
         return redirect()->route('company.index')->with('success', '¡Compañía agregada exitosamente!');
-        // return $request->all();
     }
 
     /**
