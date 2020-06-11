@@ -64,7 +64,8 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        return view('employees.show', compact('employee'));
+        $companeros = Employee::Companeros($employee->company_id, $employee->id);
+        return view('employees.show', compact('employee', 'companeros'));
     }
 
     /**

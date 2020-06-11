@@ -19,4 +19,11 @@ class Employee extends Model
     {
         return $this->belongsTo(Company::class);
     }
+
+    // Scopes?
+
+    public function scopeCompaneros($query, $company_id, $employee_id)
+    {
+        return $query->where('company_id', $company_id)->get()->except($employee_id);
+    }
 }
