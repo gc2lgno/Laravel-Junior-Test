@@ -28,4 +28,8 @@ Route::get('/company-data', function () {
     return view('companies.datatables', compact('companies'));
 })->name('company.datatables');
 
+Route::get('/company-aggrid', function () {
+    return view('companies.aggrid');
+})->name('company.aggrid');
+
 Route::resource('/employee', 'EmployeeController');
