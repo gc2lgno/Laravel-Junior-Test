@@ -1,5 +1,6 @@
 <?php
 
+use App\Company;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,4 +23,9 @@ Auth::routes(['register' => false]);
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/company', 'CompanyController');
+Route::get('/company-data', function () {
+    $companies = Company::all();
+    return view('companies.datatables', compact('companies'));
+})->name('company.datatables');
+
 Route::resource('/employee', 'EmployeeController');

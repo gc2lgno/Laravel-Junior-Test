@@ -52,7 +52,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('company.index') }}" class="nav-link">
+                            <a href="{{ route('company.datatables') }}" class="nav-link">
                                 <i class="fa fa-list nav-icon"></i>
                                 <p>Lista (Datatables)</p>
                             </a>

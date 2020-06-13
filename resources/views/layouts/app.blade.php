@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.css')}}">
-
+    @yield('custom-css')
 </head>
 
 <body class="hold-transition sidebar-mini">
