@@ -36,6 +36,7 @@ A small project, trying to apply my few knowledge of Laravel. You can find the o
 </ol>
 <hr>
 <h1>Español</h1>
+
 ## Estudiando y Aprendiendo Laravel
 
 Un pequeño proyecto, tratando de aplicar mi poco conocimiento en Laravel. Puedes encontrar el reto original <a href="https://laraveldaily.com/test-junior-laravel-developer-sample-project/"> en este link </a>. Realmente me considero un novato en toda esta cosa llamada Desarrollo Web, pero esta es mi versión de esa prueba.
