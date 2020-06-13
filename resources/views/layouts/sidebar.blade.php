@@ -48,13 +48,21 @@
                         <li class="nav-item">
                             <a href="{{ route('company.index') }}" class="nav-link">
                                 <i class="fa fa-list nav-icon"></i>
+<<<<<<< Updated upstream
                                 <p>Lista (Datatables)</p>
+=======
+                                <p>Lista (ag-Grid)</p>
+>>>>>>> Stashed changes
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('company.index') }}" class="nav-link">
                                 <i class="fa fa-list nav-icon"></i>
+<<<<<<< Updated upstream
                                 <p>Lista (ag-Grid)</p>
+=======
+                                <p>Lista (Datatables)</p>
+>>>>>>> Stashed changes
                             </a>
                         </li>
                     </ul>
