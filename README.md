@@ -26,7 +26,7 @@ A small project, trying to apply my few knowledge of Laravel. You can find the o
 </ul>
 
 
-<p>TODO List</p>
+<p><b>TODO List</b></p>
 <ol>
 <li>Use Blade Components</i>
 <li>Make the project multi-language</i>
