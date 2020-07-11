@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Company;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Datatables;
+use Illuminate\Support\Facades\DB;
 
 class CompanyController extends Controller
 {
@@ -15,9 +17,10 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::all()->toArray();
+        $companies = Company::all();
 
-        return $companies;
+        return datatables()->collection($companies)->toJson();
+
     }
 
     /**
